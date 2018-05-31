@@ -36,38 +36,38 @@ count=1
 # Reading all the lines of the file
 while read fullname company job email
 do
-	fullname="${fullname%\"}"
-	fullname="${fullname#\"}"
+  fullname="${fullname%\"}"
+  fullname="${fullname#\"}"
 
-	company="${company%\"}"
+  company="${company%\"}"
   company="${company#\"}"
 
-	job="${job%\"}"
+  job="${job%\"}"
   job="${job#\"}"
 
   # Setting the file names to the fullname with underscore instead of spaces.
   # The output folder is the name of the input file without the .csv ending.
   fnameEPS=$(printf "%s/%s/%03d_%s.eps" $currentDir $bn $count ${fullname// /_})
-	fnamePNG=$(printf "%s/%s/%03d_%s.png" $currentDir $bn $count ${fullname// /_})
+  fnamePNG=$(printf "%s/%s/%03d_%s.png" $currentDir $bn $count ${fullname// /_})
 
-	echo "File stored in: $fnameEPS"
-	echo "File stored in: $fnamePNG"
+  echo "File stored in: $fnameEPS"
+  echo "File stored in: $fnamePNG"
 
   # Store the QR content in the content variable
-	read -r -d '' content << EndOfMessage
+  read -r -d '' content << EndOfMessage
 Name: $fullname
 Company: $company
 Job description: $job
 Email: $email
 EndOfMessage
 
-	echo "$content"
+  echo "$content"
 
   # Using the qrencode library to generate the QR in EPS and PNG formats
-	qrencode -t EPS -o $fnameEPS "$content"
-	qrencode -o $fnamePNG -d 300 -s 18 "$content"
+  qrencode -t EPS -o $fnameEPS "$content"
+  qrencode -o $fnamePNG -d 300 -s 18 "$content"
 
-	(( count++ ))
+  (( count++ ))
 done < $INPUT
 
 # Setting the field separator back to its old value
