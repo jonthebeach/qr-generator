@@ -2,6 +2,11 @@
 QR code generation from a given CSV file containing a list of full name,
 company, job description and e-mail.
 
+## Pre-requisites
+This QR code generator uses the `qrencode` command-line tool. It can be
+installed using `apt-get install qrencode` on Linux, or `brew install qrencode` on
+Mac OS.
+
 ## Usage
 This QR code generator receives a CSV file as input. This CSV file should
 contain 4 columns:
